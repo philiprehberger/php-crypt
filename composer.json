@@ -2,6 +2,7 @@
     "name": "philiprehberger/php-crypt",
     "description": "Secure-by-default encryption with AES-256-GCM and key rotation",
     "keywords": ["encryption", "aes-256-gcm", "crypto", "key-rotation", "openssl", "security"],
+    "homepage": "https://github.com/philiprehberger/php-crypt",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -31,6 +32,11 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "lint": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
