@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml/badge.svg)](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
-[![PHP Version Require](https://img.shields.io/packagist/php-v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
 [![License](https://img.shields.io/github/license/philiprehberger/php-crypt)](LICENSE)
 
 Secure-by-default encryption with AES-256-GCM and key rotation. Zero external dependencies — uses PHP's built-in OpenSSL extension.
@@ -114,33 +113,15 @@ $rotated = $chain->rotateAll($ciphertexts);
 
 ---
 
-## Testing
+## Development
 
 ```bash
 composer install
 vendor/bin/phpunit
-```
-
-Code style:
-
-```bash
-vendor/bin/pint
-```
-
-Static analysis:
-
-```bash
+vendor/bin/pint --test
 vendor/bin/phpstan analyse
 ```
 
----
-
-## Changelog
-
-Please see [CHANGELOG.md](CHANGELOG.md) for recent changes.
-
----
-
 ## License
 
-The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
+MIT
