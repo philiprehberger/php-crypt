@@ -4,7 +4,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
 [![License](https://img.shields.io/github/license/philiprehberger/php-crypt)](LICENSE)
 
-Secure-by-default encryption with AES-256-GCM and key rotation. Zero external dependencies — uses PHP's built-in OpenSSL extension.
+Secure-by-default encryption with AES-256-GCM and key rotation.
 
 ---
 
