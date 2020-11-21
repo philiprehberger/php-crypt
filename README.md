@@ -56,6 +56,32 @@ $encrypted = Crypt::encryptArray(['name' => 'Alice', 'role' => 'admin'], $key);
 $data = Crypt::decryptArray($encrypted, $key);
 ```
 
+### JSON Encryption
+
+Encrypt and decrypt any JSON-serializable value:
+
+```php
+$data = [
+    'user' => ['name' => 'Alice', 'email' => 'alice@example.com'],
+    'roles' => ['admin', 'editor'],
+];
+
+$encrypted = Crypt::encryptJson($data, $key);
+$decrypted = Crypt::decryptJson($encrypted, $key); // returns the original structure
+```
+
+### Key Validation
+
+Check the strength of an encryption key:
+
+```php
+$result = Crypt::validateKeyStrength($key);
+// ['valid' => true, 'bits' => 256, 'recommendation' => null]
+
+$weak = Crypt::validateKeyStrength(base64_encode('short'));
+// ['valid' => false, 'bits' => 40, 'recommendation' => 'Key is 40-bit. A minimum of ...']
+```
+
 ### KeyChain (Multi-Key Management)
 
 Manage key rotation transparently — encrypts with the current key, decrypts with any known key:
@@ -84,6 +110,9 @@ $rotated = $chain->rotateAll($ciphertexts);
 | `rotate(string $encrypted, string $oldKey, string $newKey): string` | Re-encrypt data with a new key |
 | `encryptArray(array $data, string $key): string` | Encrypt an array as JSON |
 | `decryptArray(string $encrypted, string $key): array` | Decrypt a JSON-encoded array |
+| `encryptJson(mixed $data, string $key): string` | JSON-encode any value then encrypt |
+| `decryptJson(string $encrypted, string $key): mixed` | Decrypt then JSON-decode |
+| `validateKeyStrength(string $key): array` | Check key bit length and strength |
 
 ### `KeyChain`
 

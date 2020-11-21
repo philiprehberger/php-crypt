@@ -109,6 +109,72 @@ class CryptTest extends TestCase
         $this->assertSame($data, $decrypted);
     }
 
+    public function test_encrypt_json_and_decrypt_json_roundtrip_with_array(): void
+    {
+        $key = Crypt::generateKey();
+        $data = ['name' => 'Alice', 'age' => 30, 'active' => true];
+
+        $encrypted = Crypt::encryptJson($data, $key);
+        $decrypted = Crypt::decryptJson($encrypted, $key);
+
+        $this->assertSame($data, $decrypted);
+    }
+
+    public function test_encrypt_json_and_decrypt_json_roundtrip_with_nested_objects(): void
+    {
+        $key = Crypt::generateKey();
+        $data = [
+            'user' => ['name' => 'Bob', 'email' => 'bob@example.com'],
+            'roles' => ['admin', 'editor'],
+            'meta' => ['created' => '2026-01-01', 'settings' => ['theme' => 'dark', 'notifications' => true]],
+        ];
+
+        $encrypted = Crypt::encryptJson($data, $key);
+        $decrypted = Crypt::decryptJson($encrypted, $key);
+
+        $this->assertSame($data, $decrypted);
+    }
+
+    public function test_decrypt_json_throws_on_invalid_json(): void
+    {
+        $key = Crypt::generateKey();
+        $encrypted = Crypt::encrypt('not-valid-json', $key);
+
+        $this->expectException(\JsonException::class);
+        Crypt::decryptJson($encrypted, $key);
+    }
+
+    public function test_validate_key_strength_with_strong_key(): void
+    {
+        $key = Crypt::generateKey();
+        $result = Crypt::validateKeyStrength($key);
+
+        $this->assertTrue($result['valid']);
+        $this->assertSame(256, $result['bits']);
+        $this->assertNull($result['recommendation']);
+    }
+
+    public function test_validate_key_strength_with_weak_key(): void
+    {
+        $weakKey = base64_encode(random_bytes(16));
+        $result = Crypt::validateKeyStrength($weakKey);
+
+        $this->assertFalse($result['valid']);
+        $this->assertSame(128, $result['bits']);
+        $this->assertNotNull($result['recommendation']);
+        $this->assertStringContainsString('128-bit', $result['recommendation']);
+        $this->assertStringContainsString('256-bit', $result['recommendation']);
+    }
+
+    public function test_validate_key_strength_with_invalid_base64(): void
+    {
+        $result = Crypt::validateKeyStrength('not-valid-base64!!!');
+
+        $this->assertFalse($result['valid']);
+        $this->assertSame(0, $result['bits']);
+        $this->assertNotNull($result['recommendation']);
+    }
+
     public function test_keychain_encrypt_and_decrypt(): void
     {
         $key = Crypt::generateKey();

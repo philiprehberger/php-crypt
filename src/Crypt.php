@@ -170,6 +170,79 @@ class Crypt
     }
 
     /**
+     * Encrypt any value as JSON using AES-256-GCM.
+     *
+     * @param  mixed  $data  Data to JSON-encode and encrypt
+     * @param  string  $key  Base64-encoded 32-byte key
+     * @return string Base64-encoded ciphertext
+     *
+     * @throws InvalidKeyException If the key is invalid
+     * @throws \JsonException If the data cannot be JSON-encoded
+     */
+    public static function encryptJson(mixed $data, string $key): string
+    {
+        $json = json_encode($data, JSON_THROW_ON_ERROR);
+
+        return self::encrypt($json, $key);
+    }
+
+    /**
+     * Decrypt JSON-encoded data from AES-256-GCM ciphertext.
+     *
+     * @param  string  $encrypted  Base64-encoded ciphertext
+     * @param  string  $key  Base64-encoded 32-byte key
+     * @return mixed Decrypted and JSON-decoded data
+     *
+     * @throws InvalidKeyException If the key is invalid
+     * @throws DecryptionException If decryption fails
+     * @throws \JsonException If the decrypted data is not valid JSON
+     */
+    public static function decryptJson(string $encrypted, string $key): mixed
+    {
+        $json = self::decrypt($encrypted, $key);
+
+        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Validate the strength of an encryption key.
+     *
+     * Decodes the base64 key and checks the byte length against
+     * recommended minimums.
+     *
+     * @param  string  $key  Base64-encoded key to validate
+     * @return array{valid: bool, bits: int, recommendation: ?string}
+     */
+    public static function validateKeyStrength(string $key): array
+    {
+        $decoded = base64_decode($key, true);
+
+        if ($decoded === false) {
+            return [
+                'valid' => false,
+                'bits' => 0,
+                'recommendation' => 'Key is not valid base64. Use Crypt::generateKey() to create a secure key.',
+            ];
+        }
+
+        $bits = strlen($decoded) * 8;
+
+        if ($bits >= 256) {
+            return [
+                'valid' => true,
+                'bits' => $bits,
+                'recommendation' => null,
+            ];
+        }
+
+        return [
+            'valid' => false,
+            'bits' => $bits,
+            'recommendation' => "Key is {$bits}-bit. A minimum of 256-bit is recommended. Use Crypt::generateKey() to create a secure key.",
+        ];
+    }
+
+    /**
      * Validate and decode a base64-encoded encryption key.
      *
      * @throws InvalidKeyException If the key is not a valid 32-byte base64 string
