@@ -2,7 +2,6 @@
 
 [![Tests](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml/badge.svg)](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
-[![Total Downloads](https://img.shields.io/packagist/dt/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
 [![PHP Version Require](https://img.shields.io/packagist/php-v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
 [![License](https://img.shields.io/github/license/philiprehberger/php-crypt)](LICENSE)
 
