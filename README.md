@@ -6,24 +6,16 @@
 
 Secure-by-default encryption with AES-256-GCM and key rotation.
 
----
-
 ## Requirements
 
-| Dependency | Version |
-|------------|---------|
-| PHP        | ^8.2    |
-| ext-openssl | *      |
-
----
+- PHP 8.2+
+- ext-openssl
 
 ## Installation
 
 ```bash
 composer require philiprehberger/php-crypt
 ```
-
----
 
 ## Usage
 
@@ -80,8 +72,6 @@ $decrypted = $chain->decrypt($encryptedWithAnyKey);
 $rotated = $chain->rotateAll($ciphertexts);
 ```
 
----
-
 ## API
 
 ### `Crypt` (Static)
@@ -110,8 +100,6 @@ $rotated = $chain->rotateAll($ciphertexts);
 |-----------|------|
 | `InvalidKeyException` | Key is not a valid base64-encoded 32-byte string |
 | `DecryptionException` | Decryption fails (wrong key, tampered data, invalid ciphertext) |
-
----
 
 ## Development
 
