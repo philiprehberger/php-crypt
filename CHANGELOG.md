@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-03-22
+
+### Added
+- `Crypt::encryptJson()` — JSON-encode any value then encrypt it
+- `Crypt::decryptJson()` — decrypt then JSON-decode, throwing on invalid JSON
+- `Crypt::validateKeyStrength()` — check key bit length and get strength recommendations
+
 ## [1.0.3] - 2026-03-17
 
 ### Changed
