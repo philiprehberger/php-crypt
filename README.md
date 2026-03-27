@@ -3,6 +3,7 @@
 [![Tests](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml/badge.svg)](https://github.com/philiprehberger/php-crypt/actions/workflows/tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/philiprehberger/php-crypt.svg)](https://packagist.org/packages/philiprehberger/php-crypt)
 [![License](https://img.shields.io/github/license/philiprehberger/php-crypt)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
 
 Secure-by-default encryption with AES-256-GCM and key rotation.
 
